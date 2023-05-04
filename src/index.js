@@ -15,6 +15,7 @@ import 'index.css';
 import TitleScreen from 'js/stage/title.js';
 import PlayScreen from 'js/stage/play.js';
 import PlayerEntity from 'js/renderables/player.js';
+import CoinEntity from 'js/renderables/coin.js';
 
 import DataManifest from 'manifest.js';
 
@@ -51,8 +52,9 @@ device.onReady(() => {
 
         // add our player entity in the entity pool
         pool.register("mainPlayer", PlayerEntity);
+        pool.register("CoinEntity", CoinEntity);
 
-        // Start the ga
+        // Start the game
         state.change(state.PLAY);
     });
 });

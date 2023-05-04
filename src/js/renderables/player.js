@@ -1,4 +1,4 @@
-import { Entity, game, input, Rect, sprite, collision } from 'melonjs';
+import { Entity, game, input, Rect, sprite, collision, audio, level } from 'melonjs';
 
 class PlayerEntity extends Entity {
 
@@ -87,9 +87,13 @@ class PlayerEntity extends Entity {
             {
                 // set current vel to the maximum defined value
                 // gravity will then do the rest
-                this.body.force.y = -this.body.maxVel.y
-                this.renderable.setCurrentAnimation("jump")
+                this.body.force.y = -this.body.maxVel.y;
+                this.renderable.setCurrentAnimation("jump");
+
+                // play jump sound
+                audio.play("jump");
             }
+
         } else {
             this.body.force.y = 0;
         }
@@ -129,6 +133,21 @@ class PlayerEntity extends Entity {
 
             // Respond to the slope (it is solid)
             return true;
+        }
+
+        // Change music upon level transition, also stopping previous song
+        else if (other.Type === "me.Trigger") {
+            // Create case for starting level two music
+            if (level.getCurrentLevelId() === "area01") {
+                audio.stopTrack();
+                audio.playTrack("level_two");
+            }
+
+            // Create case for starting level three music
+            else if (level.getCurrentLevelId() === "area02") {
+                audio.stopTrack();
+                audio.playTrack("level_three");
+            }
         }
     }
 };

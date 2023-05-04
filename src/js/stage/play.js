@@ -1,4 +1,4 @@
-import { Stage, game, ColorLayer, BitmapText, level  } from 'melonjs';
+import { Stage, game, ColorLayer, BitmapText, level, audio } from 'melonjs';
 
 class PlayScreen extends Stage {
     /**
@@ -7,7 +7,11 @@ class PlayScreen extends Stage {
     onResetEvent() {
         level.load("area01");
         //level.load("test_area02");
-        
+        audio.playTrack("level_one");
+    }
+
+    onDestroyEvent() {
+        audio.stopTrack();
     }
 };
 

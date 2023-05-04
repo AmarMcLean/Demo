@@ -10,6 +10,7 @@ const DataManifest = [
     {name: "Interior-01", type:"image", src: "data/img/Interior-01.png"},
     {name: "Idle-Sheet", type:"image", src: "data/img/Idle-Sheet.png"},
     {name: "Tree-Assets", type:"image", src: "data/img/Tree-Assets.png"},
+    {name: "coin", type:"image", src: "data/img/coin.png"},
 
     //Tile sets
     {name: "Tiles", type:"tsx", src: "data/img/Tiles.tsx"},
@@ -20,18 +21,27 @@ const DataManifest = [
     {name: "Tree-Assets", type:"tsx", src: "data/img/Tree-Assets.tsx"},
 
     //Levels
-    {name: "area01", type: "tmx",	src: "data/map/area01.tmx"},
-    {name: "area02", type: "tmx",	src: "data/map/area02.tmx"},
-    {name: "area03", type: "tmx",	src: "data/map/area03.tmx"},
-    {name: "test_area01", type: "tmx",	src: "data/map/test_area01.tmx"},
-    {name: "test_area02", type: "tmx",	src: "data/map/test_area02.tmx"},
+    {name: "area01", type: "tmx", src: "data/map/area01.tmx"},
+    {name: "area02", type: "tmx", src: "data/map/area02.tmx"},
+    {name: "area03", type: "tmx", src: "data/map/area03.tmx"},
+    {name: "test_area01", type: "tmx", src: "data/map/test_area01.tmx"},
+    {name: "test_area02", type: "tmx", src: "data/map/test_area02.tmx"},
     
     //Player Entity
     {name: "Sprite_Full", type: "image", src: "data/img/Sprite_Full.png"},
     {name: "player_run01", type: "image", src: "data/img/player_run01.png"},
 
     //Menus
-    {name: "title_screen", type: "image", src: "data/img/title_screen.png"}
+    {name: "title_screen", type: "image", src: "data/img/title_screen.png"},
+
+    //Music
+    {name: "level_one", type: "audio", src: "data/bgm/", channel: 1},
+    {name: "level_two", type: "audio", src: "data/bgm/", channel: 1},
+    {name: "level_three", type: "audio", src: "data/bgm/", channel: 1},
+
+    //Sfx
+    {name: "jump", type: "audio", src: "data/sfx/", channel: 2},
+    {name: "cling", type: "audio", src: "data/sfx/", channel: 2}
 ];
 
 export default DataManifest;
