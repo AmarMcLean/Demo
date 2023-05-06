@@ -1,8 +1,8 @@
 {
-  "name": "melonjs-es6-boilerplate",
-  "version": "1.25.0",
+  "name": "Jump Lite",
+  "version": "1.0",
   "main": "src/index.js",
-  "author": "Olivier Biot",
+  "author": "CMSC 447 Peeps :3",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.21.0",
