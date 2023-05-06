@@ -12,6 +12,10 @@ const DataManifest = [
     {name: "Tree-Assets", type:"image", src: "data/img/Tree-Assets.png"},
     {name: "coin", type:"image", src: "data/img/coin.png"},
 
+    //Font
+    { name: "PressStart2P", type:"image", src: "data/fnt/PressStart2P.png" },
+    { name: "PressStart2P", type:"binary", src: "data/fnt/PressStart2P.fnt"},
+
     //Tile sets
     {name: "Tiles", type:"tsx", src: "data/img/Tiles.tsx"},
     {name: "Background", type:"tsx", src: "data/img/Background.tsx"},
@@ -41,7 +45,9 @@ const DataManifest = [
 
     //Sfx
     {name: "jump", type: "audio", src: "data/sfx/", channel: 2},
-    {name: "cling", type: "audio", src: "data/sfx/", channel: 2}
+    {name: "cling", type: "audio", src: "data/sfx/", channel: 2},
+    {name: "level_complete", type: "audio", src: "data/sfx/", channel: 2},
+    {name: "game_complete", type: "audio", src: "data/sfx/", channel: 2},
 ];
 
 export default DataManifest;
