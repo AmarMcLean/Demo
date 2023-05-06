@@ -1,4 +1,6 @@
 import { Entity, game, input, Rect, sprite, collision, audio, level } from 'melonjs';
+import data from './../../data/data.js';
+// import { newUser, getUser, delUser, scrUser } from './api.js'
 
 class PlayerEntity extends Entity {
 
@@ -17,6 +19,9 @@ class PlayerEntity extends Entity {
 
         // set the display to follow our position on both axis
         game.viewport.follow(this.pos, game.viewport.AXIS.BOTH, 0.4);
+
+        // initialize the timer
+        this.timer = 0;
 
         // ensure the player is updated even when outside of the viewport
         this.alwaysUpdate = true;
@@ -56,6 +61,12 @@ class PlayerEntity extends Entity {
         // change body force based on inputs
         //....
         // call the parent method
+
+        // update the timer, dt is in milliseconds
+        // so update it by dt / 100 for 
+        // decisecond equivalent
+        this.timer += (dt / 100);
+
         if (input.isKeyPressed('left')) {
 
             // flip the sprite on horizontal axis
@@ -135,83 +146,70 @@ class PlayerEntity extends Entity {
             return true;
         }
 
-        // Change music upon level transition, also stopping previous song
-        else if (other.Type === "me.Trigger") {
+        // Change music upon level transition, also stopping previous song.
+        // Stores timer value per level, resets timer.
+        else if (other.type === "transition") {
             // Create case for starting level two music
             if (level.getCurrentLevelId() === "area01") {
+                // Handles audio transition
                 audio.stopTrack();
+                audio.play("level_complete");
                 audio.playTrack("level_two");
+
+                // Handles time for the level
+                data.lvl_1_time = this.timer;
+                // scrUser("default", data.lvl_1_time, 1).then(response => {
+                //     console.log(response);
+                // });
+                this.timer = 0;
+
+                // Removes the trigger so that the audio
+                // does not overlap and the timer does
+                // not get screwed up
+                game.world.removeChild(other);
             }
 
             // Create case for starting level three music
             else if (level.getCurrentLevelId() === "area02") {
+                // Handles audio transition
                 audio.stopTrack();
+                audio.play("level_complete");
                 audio.playTrack("level_three");
+
+                // Handles time for the level
+                data.lvl_2_time = this.timer;
+                // scrUser("default", data.lvl_2_time, 2).then(response => {
+                //     console.log(response);
+                // });
+                this.timer = 0;
+
+                // Removes the trigger so that the audio
+                // does not overlap and the timer does
+                // not get screwed up
+                game.world.removeChild(other);
+            }
+
+            else if (level.getCurrentLevelId() === "area03") {
+                // Handles audio transition
+                audio.stopTrack();
+                audio.play("game_complete");
+
+                // Handles time for the level
+                data.lvl_3_time = this.timer;
+                // scrUser("default", data.lvl_3_time, 3).then(response => {
+                //     console.log(response);
+                // });
+                // Perform arithmetic for total completion time
+                data.total_time = (data.lvl_1_time + data.lvl_2_time + data.lvl_3_time) - (data.coins * 50);
+                this.timer = 0;
+
+                // Removes the trigger so that the audio
+                // does not overlap and the timer does
+                // not get screwed up
+                game.world.removeChild(other);
             }
         }
     }
 };
 
 export default PlayerEntity;
-
-/*
-update(dt) {
-
-        if (input.isKeyPressed("left")){
-            if (this.body.vel.y === 0) {
-                this.renderable.setCurrentAnimation("walk");
-            }
-            this.body.force.x = -this.body.maxVel.x;
-            this.renderable.flipX(true);
-        } else if (input.isKeyPressed("right")) {
-            if (this.body.vel.y === 0) {
-                this.renderable.setCurrentAnimation("walk");
-            }
-            this.body.force.x = this.body.maxVel.x;
-            this.renderable.flipX(false);
-        }
-
-        if (input.isKeyPressed("jump")) {
-            this.renderable.setCurrentAnimation("jump");
-            this.body.jumping = true;
-            if (this.multipleJump <= 2) {
-                // easy "math" for double jump
-                this.body.force.y = -this.body.maxVel.y * this.multipleJump++;
-            }
-        } else {
-            if (!this.body.falling && !this.body.jumping) {
-                // reset the multipleJump flag if on the ground
-                this.multipleJump = 1;
-            }
-            else if (this.body.falling && this.multipleJump < 2) {
-                // reset the multipleJump flag if falling
-                this.multipleJump = 2;
-            }
-        }
-
-
-        if (this.body.force.x === 0 && this.body.force.y === 0) {
-            this.renderable.setCurrentAnimation("stand");
-        }
-
-        // check if we fell into a hole
-        if (!this.inViewport && (this.pos.y > video.renderer.getHeight())) {
-            // if yes reset the game
-            game.world.removeChild(this);
-            game.viewport.fadeIn("#fff", 150, function(){
-                level.reload();
-                game.viewport.fadeOut("#fff", 150);
-            });
-            return true;
-        }
-
-        // check if we moved (an "idle" animation would definitely be cleaner)
-        if (this.body.vel.x !== 0 || this.body.vel.y !== 0 ||
-            (this.renderable && this.renderable.isFlickering())
-        ) {
-            super.update(dt);
-            return true;
-        }
-        return false;
-    }
-*/
